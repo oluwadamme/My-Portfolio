@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Geist:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+:root {
+  --surface-obsidian: #0e0e10;
+  --surface-dim: #131315;
+  --surface-bright: #39393b;
+  --surface-low: #1c1b1d;
+  --surface-container: #201f22;
+  --surface-high: #2a2a2c;
+  --surface-highest: #353437;
+  --hyper-cyan: #4edea3;  /* Emerald primary */
+  --fuchsia-flare: #ffc640; /* Muted Gold secondary */
+  --engine-green: #10b981; /* Primary Emerald Green success */
+  --precision: rgba(134, 148, 138, 0.15); /* outline-variant style precision borders */
+  --ink-primary: #e5e1e4; /* on-surface */
+  --ink-subtle: #bbcabf; /* on-surface-variant */
+  --ink-muted: #86948a; /* outline */
+  --surface-well: #0e0e10;
+}
+
+.light {
+  --surface-obsidian: #f3f3f5;
+  --surface-dim: #fbfbfb;
+  --surface-bright: #e4e4e7;
+  --surface-low: #f4f4f5;
+  --surface-container: #ffffff;
+  --surface-high: #e4e4e7;
+  --surface-highest: #d4d4d8;
+  --hyper-cyan: #059669; /* Emerald primary for light mode */
+  --fuchsia-flare: #ca8a04; /* Muted Gold secondary for light mode */
+  --engine-green: #10b981;
+  --precision: rgba(60, 74, 66, 0.15);
+  --ink-primary: #18181b;
+  --ink-subtle: #3f3f46;
+  --ink-muted: #71717a;
+  --surface-well: #fafafa;
+}
+
+@theme {
+  --color-surface-obsidian: var(--surface-obsidian);
+  --color-surface-dim: var(--surface-dim);
+  --color-surface-bright: var(--surface-bright);
+  --color-surface-low: var(--surface-low);
+  --color-surface-container: var(--surface-container);
+  --color-surface-high: var(--surface-high);
+  --color-surface-highest: var(--surface-highest);
+  --color-hyper-cyan: var(--hyper-cyan);
+  --color-fuchsia-flare: var(--fuchsia-flare);
+  --color-engine-green: var(--engine-green);
+  --color-precision: var(--precision);
+  --color-ink-primary: var(--ink-primary);
+  --color-ink-subtle: var(--ink-subtle);
+  --color-ink-muted: var(--ink-muted);
+  --color-surface-well: var(--surface-well);
+
+  --font-space-grotesk: "Space Grotesk", sans-serif;
+  --font-geist: "Space Grotesk", sans-serif;
+  --font-fira-code: "Fira Code", monospace;
+}
+
+@layer base {
+  body {
+    background-color: var(--surface-dim);
+    color: var(--ink-primary);
+    font-family: var(--font-geist);
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  /* Custom subtle scrolls suitable for IDE theme */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--surface-well);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--surface-high);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--hyper-cyan);
+  }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+.animate-scanline {
+  animation: scanline 8s linear infinite;
+}
