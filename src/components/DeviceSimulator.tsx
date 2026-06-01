@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { Project } from '../types';
 import { 
   Wifi, 
@@ -456,9 +457,18 @@ export default function DeviceSimulator({ activeProject, onAddLog }: DeviceSimul
 
         {/* DEVICE SCREEN PORT */}
         <div className="flex-1 bg-neutral-950 overflow-y-auto overflow-x-hidden p-4 relative select-none scrollbar-none flex flex-col justify-between">
-          
-          {/* ========================================================= */}
-          {/* 🎙️ ORALIDLE SIMULATOR */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeProject.id}
+              initial={{ opacity: 0, scale: 0.95, y: 5 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: -5 }}
+              transition={{ duration: 0.18, ease: 'easeOut' }}
+              className="flex-1 flex flex-col justify-between h-full w-full"
+            >
+              
+              {/* ========================================================= */}
+              {/* 🎙️ ORALIDLE SIMULATOR */}
           {activeProject.id === 'oralidle' && (
             <div className="flex-1 flex flex-col h-full justify-between">
               <div className="space-y-3">
@@ -1607,6 +1617,8 @@ export default function DeviceSimulator({ activeProject, onAddLog }: DeviceSimul
               )}
             </div>
           )}
+            </motion.div>
+          </AnimatePresence>
 
           {/* Sentry frame status row */}
           <div className="pt-3 mt-2 border-t border-neutral-900 flex justify-between text-[8px] font-mono whitespace-nowrap overflow-x-hidden text-neutral-500 shrink-0">

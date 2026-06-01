@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { Copy, Check, FileCode, Terminal, HelpCircle } from 'lucide-react';
 
 interface CodeInspectorProps {
@@ -116,9 +117,18 @@ export default function CodeInspector({ code, filename, onAddLog }: CodeInspecto
 
       {/* Code Area scrollable viewport */}
       <div className="flex-1 overflow-auto p-4 bg-surface-well/95 font-fira-code selection:bg-[#ff2a85]/30 scrollbar-thin">
-        <div className="table w-full border-collapse">
-          {renderHighlightedCode(code)}
-        </div>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={filename}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.15 }}
+            className="table w-full border-collapse"
+          >
+            {renderHighlightedCode(code)}
+          </motion.div>
+        </AnimatePresence>
       </div>
 
       {/* Sentry static log output summary indicator */}

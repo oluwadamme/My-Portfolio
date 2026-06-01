@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { 
   Terminal, 
   Cpu, 
@@ -216,9 +217,17 @@ export default function App() {
         </header>
 
         {/* ACTIVE STAGE VIEWPORT */}
-        {activeTab === 'workspace' ? (
-          /* WORKSPACE IDE SECTION */
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <AnimatePresence mode="wait">
+          {activeTab === 'workspace' ? (
+            /* WORKSPACE IDE SECTION */
+            <motion.div 
+              key="workspace"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.2, ease: 'easeOut' }}
+              className="grid grid-cols-1 lg:grid-cols-12 gap-4"
+            >
             
             {/* Left Col: Projects Navigation & Explorer tree (3-cols wide on desktop) */}
             <aside className="lg:col-span-3 flex flex-col bg-surface-obsidian border border-precision rounded-xl p-4 space-y-4">
@@ -394,34 +403,92 @@ export default function App() {
 
             </main>
 
-          </div>
-        ) : (
-          /* DEVELOPER SPECS & CV VIEWER */
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 py-2 animate-fade-in font-geist">
+            </motion.div>
+          ) : (
+            /* DEVELOPER SPECS & CV VIEWER */
+            <motion.div 
+              key="specs"
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: {
+                    staggerChildren: 0.12,
+                    delayChildren: 0.05
+                  }
+                },
+                exit: {
+                  opacity: 0,
+                  y: -15,
+                  transition: { duration: 0.18 }
+                }
+              }}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="grid grid-cols-1 lg:grid-cols-12 gap-5 py-2 font-geist"
+            >
             
             {/* Biography Left Panel (4 Columns) */}
-            <aside className="lg:col-span-4 space-y-5 flex flex-col">
+            <motion.aside 
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: {
+                    staggerChildren: 0.1
+                  }
+                }
+              }}
+              className="lg:col-span-4 space-y-5 flex flex-col"
+            >
               
               {/* Profile card badge */}
-              <div className="bg-surface-obsidian text-center p-6 border border-precision rounded-xl space-y-4">
+              <motion.div 
+                variants={{
+                  hidden: { opacity: 0, y: 15 },
+                  visible: { 
+                    opacity: 1, 
+                    y: 0, 
+                    transition: { duration: 0.4, ease: 'easeOut' } 
+                  }
+                }}
+                whileHover={{ y: -2, transition: { duration: 0.2 } }}
+                className="bg-surface-obsidian text-center p-6 border border-precision rounded-xl space-y-4 shadow-[0_4px_20px_rgba(0,0,0,0.15)]"
+              >
                 <div className="relative inline-block">
-                  <div className="w-24 h-24 rounded-full mx-auto bg-gradient-to-tr from-fuchsia-flare to-hyper-cyan p-[3px] shadow-[0px_0px_25px_rgba(78,222,163,0.15)] flex items-center justify-center">
+                  <motion.div 
+                    className="w-24 h-24 rounded-full mx-auto bg-gradient-to-tr from-fuchsia-flare to-hyper-cyan p-[3px] shadow-[0px_0px_25px_rgba(78,222,163,0.15)] flex items-center justify-center"
+                    initial={{ scale: 0.8 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 100, damping: 12, delay: 0.1 }}
+                  >
                     <div className="w-full h-full bg-surface-dim rounded-full flex items-center justify-center font-space-grotesk text-3xl font-black text-ink-primary italic">
                       DA
                     </div>
-                  </div>
+                  </motion.div>
                   <span className="absolute bottom-1 right-2 w-4 h-4 bg-engine-green border-2 border-surface-obsidian rounded-full animate-ping"></span>
                   <span className="absolute bottom-1 right-2 w-4 h-4 bg-engine-green border-2 border-surface-obsidian rounded-full"></span>
                 </div>
 
                 <div className="space-y-1.5">
-                  <h2 className="font-space-grotesk text-2xl font-black text-ink-primary leading-tight">
+                  <motion.h2 
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: 0.2 }}
+                    className="font-space-grotesk text-2xl font-black text-ink-primary leading-tight"
+                  >
                     {personalInfo.name}
-                  </h2>
-                  <p className="text-sm font-semibold text-hyper-cyan tracking-wide uppercase font-space-grotesk">
+                  </motion.h2>
+                  <motion.p 
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3, delay: 0.25 }}
+                    className="text-sm font-semibold text-hyper-cyan tracking-wide uppercase font-space-grotesk"
+                  >
                     {personalInfo.role}
-                  </p>
-                  <p className="font-mono text-[10px] text-ink-subtle uppercase tracking-widest">
+                  </motion.p>
+                  <p className="font-mono text-[10px] text-ink-subtle uppercase tracking-widest animate-pulse-subtle">
                     Lagos, Africa (Open to relocation)
                   </p>
                 </div>
@@ -430,27 +497,38 @@ export default function App() {
                 <div className="pt-3 border-t border-precision space-y-2 text-xs text-left font-mono">
                   <div className="flex items-center justify-between p-1.5 bg-surface-low rounded border border-precision/40">
                     <span className="text-ink-subtle">Mobile:</span>
-                    <a href={`tel:${personalInfo.phone.replace(/\s+/g, '')}`} className="text-ink-primary hover:text-hyper-cyan font-semibold">{personalInfo.phone}</a>
+                    <a href={`tel:${personalInfo.phone.replace(/\s+/g, '')}`} className="text-ink-primary hover:text-hyper-cyan font-semibold transition-colors">{personalInfo.phone}</a>
                   </div>
                   <div className="flex items-center justify-between p-1.5 bg-surface-low rounded border border-precision/40">
                     <span className="text-ink-subtle">GitHub:</span>
-                    <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" className="text-hyper-cyan hover:underline flex items-center space-x-0.5">
+                    <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" className="text-hyper-cyan hover:underline flex items-center space-x-0.5 transition-all">
                       <span>oluwadamme</span>
                       <ExternalLink size={10} />
                     </a>
                   </div>
                   <div className="flex items-center justify-between p-1.5 bg-surface-low rounded border border-precision/40">
                     <span className="text-ink-subtle">LinkedIn:</span>
-                    <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="text-fuchsia-flare hover:underline flex items-center space-x-0.5">
+                    <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="text-fuchsia-flare hover:underline flex items-center space-x-0.5 transition-all">
                       <span>damilola-01</span>
                       <ExternalLink size={10} />
                     </a>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Certified Educational backboard */}
-              <div className="bg-surface-obsidian p-5 border border-precision rounded-xl space-y-3.5">
+              <motion.div 
+                variants={{
+                  hidden: { opacity: 0, y: 15 },
+                  visible: { 
+                    opacity: 1, 
+                    y: 0, 
+                    transition: { duration: 0.4, ease: 'easeOut' } 
+                  }
+                }}
+                whileHover={{ y: -2, transition: { duration: 0.2 } }}
+                className="bg-surface-obsidian p-5 border border-precision rounded-xl space-y-3.5 shadow-[0_4px_20px_rgba(0,0,0,0.15)]"
+              >
                 <div className="flex items-center space-x-2 text-fuchsia-flare border-b border-precision pb-2">
                   <GraduationCap size={16} />
                   <span className="font-space-grotesk font-extrabold uppercase tracking-widest text-xs">Educational Credentials</span>
@@ -470,15 +548,37 @@ export default function App() {
                     Google Developer Student Community, HackerRank Active Committer.
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
-            </aside>
+            </motion.aside>
 
             {/* Career Timeline Detail Panel (8 Columns) */}
-            <main className="lg:col-span-8 space-y-5">
+            <motion.main 
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: {
+                    staggerChildren: 0.12,
+                    delayChildren: 0.1
+                  }
+                }
+              }}
+              className="lg:col-span-8 space-y-5"
+            >
               
               {/* Chronological Work History backlog */}
-              <div className="bg-surface-obsidian p-5 border border-precision rounded-xl space-y-5">
+              <motion.div 
+                variants={{
+                  hidden: { opacity: 0, y: 15 },
+                  visible: { 
+                    opacity: 1, 
+                    y: 0, 
+                    transition: { duration: 0.4, ease: 'easeOut' } 
+                  }
+                }}
+                className="bg-surface-obsidian p-5 border border-precision rounded-xl space-y-5 shadow-[0_4px_20px_rgba(0,0,0,0.15)]"
+              >
                 <div className="flex items-center space-x-2 border-b border-precision pb-3 text-hyper-cyan">
                   <Briefcase size={16} />
                   <span className="font-space-grotesk font-black uppercase tracking-wider text-xs">Certified Career Milestones</span>
@@ -486,13 +586,19 @@ export default function App() {
 
                 <div className="space-y-6">
                   {experiences.map((exp, index) => (
-                    <div key={exp.id} className="relative pl-5 border-l border-fuchsia-flare/40 last:border-none">
+                    <motion.div 
+                      key={exp.id} 
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.35, delay: 0.2 + index * 0.1 }}
+                      className="relative pl-5 border-l border-fuchsia-flare/40 last:border-none"
+                    >
                       {/* Timeline side pip bubble */}
                       <span className="absolute -left-1.5 top-1.5 w-3.5 h-3.5 bg-surface-dim border-2 border-hyper-cyan rounded-full flex items-center justify-center">
                         <span className="w-1.5 h-1.5 bg-fuchsia-flare rounded-full"></span>
                       </span>
 
-                      <div className="space-y-1.5">
+                      <div className="space-y-1.5 overflow-hidden">
                         <div className="flex flex-wrap items-center justify-between gap-1">
                           <h4 className="font-space-grotesk text-base font-extrabold text-ink-primary">
                             {exp.role} @ <span className="text-hyper-cyan">{exp.company}</span>
@@ -520,36 +626,52 @@ export default function App() {
                           ))}
                         </div>
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
-              </div>
+              </motion.div>
 
               {/* Modular Skills Stack Matrix (Bento style) */}
-              <div className="grid grid-cols-1 md:grid-cols-1 select-text gap-4">
-                <div className="bg-surface-obsidian p-5 border border-precision rounded-xl space-y-4">
+              <motion.div 
+                variants={{
+                  hidden: { opacity: 0, y: 15 },
+                  visible: { 
+                    opacity: 1, 
+                    y: 0, 
+                    transition: { duration: 0.4, ease: 'easeOut' } 
+                  }
+                }}
+                className="grid grid-cols-1 md:grid-cols-1 select-text gap-4"
+              >
+                <div className="bg-surface-obsidian p-5 border border-precision rounded-xl space-y-4 shadow-[0_4px_20px_rgba(0,0,0,0.15)]">
                   <div className="flex items-center space-x-2 border-b border-precision pb-3 text-emerald-400">
                     <Activity size={16} />
                     <span className="font-space-grotesk font-black uppercase tracking-wider text-xs">Technical Engineering Stack Matrix</span>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    {skillCategories.map((cat) => (
+                    {skillCategories.map((cat, catIdx) => (
                       <div key={cat.title} className="space-y-2 pb-1">
                         <h5 className="font-space-grotesk text-[11px] font-extrabold text-ink-primary uppercase tracking-wider border-b border-precision pb-1 flex items-center justify-between">
                           <span>{cat.title}</span>
                         </h5>
                         <div className="space-y-2">
-                          {cat.skills.map((skill) => (
+                          {cat.skills.map((skill, skillIdx) => (
                             <div key={skill.name} className="space-y-0.5">
                               <div className="flex justify-between text-[11px] font-semibold text-ink-primary font-mono scale-95 origin-left">
                                 <span className="truncate max-w-[120px]">{skill.name}</span>
                                 {skill.meta && <span className="text-hyper-cyan text-[9px] font-semibold tracking-wide">{skill.meta}</span>}
                               </div>
                               <div className="h-1.5 w-full bg-surface-dim rounded-full border border-precision/40 overflow-hidden">
-                                <div 
+                                <motion.div 
                                   className="h-full rounded-full bg-gradient-to-r from-teal-400 to-hyper-cyan" 
-                                  style={{ width: `${skill.level}%` }}
+                                  initial={{ width: 0 }}
+                                  animate={{ width: `${skill.level}%` }}
+                                  transition={{ 
+                                    duration: 1.1, 
+                                    ease: [0.16, 1, 0.3, 1], // premium custom cubic-bezier feel
+                                    delay: 0.2 + (catIdx * 0.1) + (skillIdx * 0.05) 
+                                  }}
                                 />
                               </div>
                             </div>
@@ -559,12 +681,13 @@ export default function App() {
                     ))}
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
-            </main>
+            </motion.main>
 
-          </div>
+          </motion.div>
         )}
+      </AnimatePresence>
 
         {/* ALWAYS VISIBLE DETAILED HOT-RELOAD CONSOLE FOOTER */}
         <section className="mt-2 shrink-0">
