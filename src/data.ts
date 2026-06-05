@@ -2,12 +2,12 @@ import { Experience, Project, SkillCategory } from './types';
 
 export const personalInfo = {
   name: 'Damilola A. Adeniyi',
-  role: 'Senior Mobile Engineer',
-  phone: '(+234) 8146376717',
+  role: 'Senior Mobile Engineer (Flutter)',
+  phone: '+234 814 637 6717',
   email: 'adeniyidamilola246@gmail.com',
   github: 'https://github.com/oluwadamme',
-  linkedin: 'https://www.linkedin.com/in/adeniyi-damilola-01',
-  summary: 'Highly accomplished Mobile Engineer with 4 years of experience specializing in cross-platform development using Flutter/Dart and leveraging Kotlin/Jetpack Compose and Swift/SwiftUI for native solutions. Proven track record of spearheading mobile product development, including streamlining transaction processes to reduce checkout time by 40% and driving a 30% increase in successful transactions. Expert in CI/CD, Agile methodologies, performance optimization, AI framework utilization, and effective collaboration with cross-functional teams.'
+  linkedin: 'https://linkedin.com/in/adeniyi-damilola-01',
+  summary: 'Mobile Engineer with 4 years of production experience building Flutter applications across fintech, agritech, and crypto sectors. Specialized in Flutter, Dart, Riverpod, BLoC, and Clean Architecture. Consistent track record of shipping features that directly move business metrics: transaction volume, user adoption, and app stability. Comfortable owning features end-to-end from architecture to production release.'
 };
 
 export const experiences: Experience[] = [
@@ -17,85 +17,77 @@ export const experiences: Experience[] = [
     company: 'Nomba Financial Services',
     period: 'Jul 2024 - Present',
     description: [
-      'Spearheaded the development of a mobile checkout SDK (Flutter), streamlining transaction processes and reducing average checkout time by 40%, resulting in additional annual revenue.',
-      'Collaborated with cross-functional teams to optimize payment processing workflows, achieving a 30% increase in successful transactions and driving user growth by 25%.',
-      'Engineered innovative features like bulk transfer and payment links, leading to a 15% boost in revenue within the first quarter post-launch.'
+      'Built a Flutter SDK wrapping Nomba\'s native Android and iOS payment SDKs via platform channels, giving Flutter-based merchant apps a clean integration path without touching native code. Fixed a missing payment callback in the original native implementation that had been blocking merchant adoption. 15 to 20 merchants integrated within months of launch, driving a 20% increase in revenue.',
+      'Developed the bulk transfer and payment link features as the sole Flutter engineer. Bulk transfer lets businesses process payroll and client payments in one grouped transaction. Payment links, ported from web to mobile, allow merchants to receive payments directly into their accounts via Nomba\'s web checkout. Both features processed over 100 million naira in transaction volume and reached 100 business accounts within 3 months of launch.',
+      'Conducted code reviews across the mobile team and wrote end-to-end tests covering critical payment flows to maintain production reliability.'
     ],
-    metrics: ['-40% Checkout Time', '+30% Successful Tx', '+25% User Growth']
+    metrics: ['+20% Revenue Scale', '100M+ Naira Processed', 'Platform Channels']
   },
   {
     id: 'exp-2',
     role: 'Lead Mobile Engineer',
     company: 'AirSmat',
-    period: 'Nov 2023 - May 2024',
+    period: 'Jul 2023 - Jun 2024',
     description: [
-      'Led the mobile development team, mentoring a junior Flutter developer to enhance the AnyFarm app, resulting in a 40% reduction in critical bugs and elevating user engagement metrics by 30%.',
-      'Implemented features to help boost productivity for farm owners and manage complex farm operations.',
-      'Spearheaded API integration and performance optimization, boosting app performance time by 25% and increasing user satisfaction ratings from an average of 3.5 to 4.7 ratings on both the App Store and Play Store.'
+      'Inherited a Flutter codebase with no architecture or consistent patterns from a previous developer. Refactored the entire app to clean architecture with a feature-layer approach and Riverpod state management, then introduced Firebase Crashlytics and analytics for bug tracking. Production bugs dropped 40% within the first 3 months.',
+      'Built a multi-tenant role-based UI system for the AnyFarm platform, serving enterprise farm owners, including two bank-backed operations, where each user\'s interface adapts dynamically based on their assigned permissions.',
+      'Implemented an in-app rating prompt that redirected satisfied users to the store after resolving issues, combined with proactive client outreach from the support team. App store ratings climbed from 3.5 to 4.7 across both Google Play and the App Store.',
+      'Mentored a junior Flutter engineer new to Clean Architecture, providing structured code reviews and pairing sessions that contributed directly to the reduction in production defects.'
     ],
-    metrics: ['-40% Critical Bugs', '+25% Performance Speed', '4.7 App Store Rating']
+    metrics: ['-40% Production Bugs', '4.7 App Store Rating', 'Multi-tenant UI System']
   },
   {
     id: 'exp-3',
     role: 'Mobile Engineer',
     company: 'Pay4me Inc.',
-    period: 'Jun 2022 - Nov 2023',
+    period: 'Jan 2022 - Jul 2023',
     description: [
-      'Architected and launched the JapaPlus app (Flutter) in collaboration with cross-functional teams, achieving over 1k+ downloads within the first month and enhancing team efficiency by 30% through streamlined communication practices.',
-      'Engineered and deployed a core peer-to-peer (P2P) feature for Pay4me App users, resulting in a 25% decrease in app loading times and elevating user satisfaction scores by 40%.',
-      'Orchestrated the successful deployment of the Pay4me app to the Play Store and App Store, facilitating access for over 50k+ users and improving CI/CD deployment speed by 50% through version control best practices.'
+      'Built a peer-to-peer (P2P) money transfer feature from scratch, allowing users to send money between app accounts and receive funds from family abroad in USD converted to local currency. Integrated QR code scanning with deep linking: scanning a user\'s code opens the app directly to the send flow or redirects to the store if the app is not installed. The feature reached 10,000 active users and processed close to 20 million naira in transaction volume.',
+      'Developed the JapaPlus feature, a community space inside Pay4me where Africans planning to study abroad can browse schools, scholarships, and grants, and interact with others going through the same process. Originally a standalone app concept, it was folded into Pay4me during my time on the team.',
+      'Managed the mobile release pipeline across iOS and Android, maintaining consistent build distribution to 50k+ users across both stores.'
     ],
-    metrics: ['+50k+ Active Users', '-25% Load Times', '+50% CI/CD Speed']
+    metrics: ['10k+ Active Users', '20M+ Naira Volume', 'Release to 50k+ Users']
   },
   {
     id: 'exp-4',
-    role: 'Flutter Developer',
+    role: 'Flutter Developer (Contract)',
     company: 'FxBud',
-    period: 'Jan 2022 - Nov 2022',
+    period: 'Dec 2021 - May 2022',
     description: [
-      'Successfully designed and implemented a crypto loan app, resulting in over 1,000 app downloads in the first quarter.',
-      'Developed an admin dashboard with Flutter Web that enhances the effectiveness of administrative tasks and provides real-time data.',
-      'Implemented the loan repayment feature, integrating Paystack and Seerbit SDKs, achieving a 20% increase in successful transactions and a 40% reduction in payment processing errors.',
-      'Actively monitored innovative trends, adopting Riverpod state management, which contributed to a 15% increase in application performance and a 10% decrease in bug frequency.'
+      'Built an admin control interface using Flutter Web for internal risk monitoring and real-time data inspection.',
+      'Integrated Paystack and Seerbit payment SDKs directly, improving transaction success by 20% and reducing processing errors by 40%.',
+      'Designed and shipped a cryptocurrency-collateralized loan app that reached 1,000 active downloads in the first quarter.'
     ],
-    metrics: ['+20% Successful Tx', '+15% Perf Optimization', '-40% Payment Errors']
+    metrics: ['+20% Successful Tx', '-40% Payment Errors', '1k+ Installs Q1']
   }
 ];
 
 export const skillCategories: SkillCategory[] = [
   {
-    title: 'AI Frameworks & Integrations',
+    title: 'Languages, Frameworks & State',
     skills: [
-      { name: 'Gemini Live / Vertex AI', level: 95, meta: 'On-device GenAI' },
-      { name: 'TensorFlow Lite / Core ML', level: 88, meta: 'Offline Edge Inference' },
-      { name: 'Speech Synthesis & ML Audio', level: 92, meta: 'Waveform Analysis' },
-      { name: 'NLP / Structured JSON Pipelines', level: 90, meta: 'Agentic Itineraries' }
+      { name: 'Dart / Flutter SDK', level: 98, meta: 'Impeller Engine / 120 FPS' },
+      { name: 'Kotlin / Swift', level: 85, meta: 'Platform Native Bindings' },
+      { name: 'Riverpod, BLoC, Provider', level: 95, meta: 'Reactive State Architecture' },
+      { name: 'Jetpack Compose / SwiftUI', level: 80, meta: 'Native UI Frameworks' }
     ]
   },
   {
-    title: 'Core Architecture & Languages',
+    title: 'Architecture & Storage',
     skills: [
-      { name: 'Dart / Flutter', level: 98, meta: '120 FPS / Impeller' },
-      { name: 'Kotlin / Jetpack Compose', level: 85, meta: 'Native Interface' },
-      { name: 'Swift / SwiftUI / UIKit', level: 82, meta: 'Native Platform Bridge' },
-      { name: 'Python', level: 75, meta: 'AI Scripting' }
+      { name: 'Clean & Modular Architecture', level: 94, meta: 'Surgical Dependency Injection' },
+      { name: 'RESTful APIs & GraphQL', level: 95, meta: 'Precision Data Syncing' },
+      { name: 'Cloud Firestore & Supabase', level: 92, meta: 'Real-time & Offline Caching' },
+      { name: 'SQLite / Realm / Firebase Realtime DB', level: 88, meta: 'Reliable Local Persistence' }
     ]
   },
   {
-    title: 'Database & Cloud Services',
+    title: 'DevOps, Testing & Diagnostics',
     skills: [
-      { name: 'Cloud Firestore & Firebase Auth', level: 92, meta: 'Real-time Sync' },
-      { name: 'SQLite / ROOM / Fauna', level: 88, meta: 'Local SQL Persistence' },
-      { name: 'GraphQL / RESTful APIs', level: 95, meta: 'Precision Syncing' },
-      { name: 'MongoDB / AWS / GCP', level: 80, meta: 'Microservices Setup' }
-    ]
-  },
-  {
-    title: 'Systems & Analytics',
-    skills: [
-      { name: 'CI/CD Pipelines (Bitrise, GitHub Actions)', level: 90, meta: '50% Speedup' },
-      { name: 'State Management (Riverpod, Bloc, Provider)', level: 95, meta: 'Surgical Updates' },
-      { name: 'Monitoring (Sentry, UXCam, Segment)', level: 88, meta: 'Zero-crash targets' }
+      { name: 'CI/CD Pipelines (Fastlane, CodeMagic)', level: 92, meta: 'Automated Releases' },
+      { name: 'Testing (Unit, Widget, E2E)', level: 88, meta: 'Mockito Framework' },
+      { name: 'Monitoring (Sentry, Crashlytics)', level: 94, meta: 'Diagnostic Bug Tracking' },
+      { name: 'Analytics (Mixpanel, Amplitude)', level: 90, meta: 'Funnel Tracking' }
     ]
   }
 ];
